@@ -29,6 +29,15 @@ jobs:
       - name: Fix Permissions
         run: chmod +x node_modules/.bin/stylelint
 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: npm install parcel
+      - name: Build Project
+        run: npx parcel build src/*
+
       - name: Lint HTML
         run: npx htmlhint src/**/*.html
 
