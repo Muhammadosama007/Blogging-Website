@@ -1,33 +1,20 @@
 name: PR Validation
 
 on:
-  push:
-    branches:
-      - develop
   pull_request:
-    branches:
-      - develop
+    branches: [develop]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
+      - uses: actions/checkout@v3
       - name: Install Dependencies
         run: npm install htmlhint stylelint
-
-      - name: Fix Permissions
-        run: chmod +x node_modules/.bin/htmlhint
-
-      - name: Fix Permissions
-        run: chmod +x node_modules/.bin/stylelint
+      - name: Lint HTML
+        run: npx htmlhint "/*.html"
+      - name: Lint CSS
+        run: npx stylelint "/*.css"
 
   build:
     runs-on: ubuntu-latest
@@ -37,9 +24,3 @@ jobs:
         run: npm install parcel
       - name: Build Project
         run: npx parcel build src/*
-
-      - name: Lint HTML
-        run: npx htmlhint src/**/*.html
-
-      - name: Lint CSS
-        run: npx stylelint styles/**/*.css
