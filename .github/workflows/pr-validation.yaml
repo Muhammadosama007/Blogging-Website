@@ -20,26 +20,34 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Dependencies
+      - name: Install Linting Dependencies
         run: npm install htmlhint stylelint
 
-      - name: Fix Permissions
-        run: chmod +x node_modules/.bin/htmlhint
+      - name: Lint HTML
+        run: npx htmlhint "src/**/*.html"
 
-      - name: Fix Permissions
-        run: chmod +x node_modules/.bin/stylelint
+      - name: Lint CSS
+        run: npx stylelint "styles/**/*.css"
 
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Dependencies
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Build Tool
         run: npm install parcel
+
       - name: Build Project
-        run: npx parcel build src/*
+        run: npx parcel build src/*
 
-      - name: Lint HTML
-        run: npx htmlhint src/**/*.html
+      - name: Verify HTML
+        run: npx htmlhint "dist/**/*.html"
 
-      - name: Lint CSS
-        run: npx stylelint styles/**/*.css
+      - name: Verify CSS
+        run: npx stylelint "dist/**/*.css"
