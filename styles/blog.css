@@ -1,0 +1,47 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f3f4f6;
+    color: #333;
+  }
+  
+  header {
+    text-align: center;
+    padding: 40px;
+    background: #4caf50;
+    color: #fff;
+  }
+  
+  header h1 {
+    font-size: 2.5rem;
+  }
+  
+  header p {
+    font-size: 1.2rem;
+  }
+  
+  main {
+    display: grid;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .blog-post {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .blog-post h2 {
+    margin: 0;
+    color: #4caf50;
+  }
+  
+  .blog-post a {
+    color: #4caf50;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
