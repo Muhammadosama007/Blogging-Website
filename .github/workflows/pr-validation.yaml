@@ -2,25 +2,43 @@ name: PR Validation
 
 on:
   pull_request:
-    branches: [develop]
+    branches:
+      - develop
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       - name: Install Dependencies
         run: npm install htmlhint stylelint
+
       - name: Lint HTML
-        run: npx htmlhint "/*.html"
+        run: npx htmlhint "src/**/*.html"
+
       - name: Lint CSS
-        run: npx stylelint "/*.css"
+        run: npx stylelint "styles/**/*.css"
 
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Install Dependencies
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Parcel
         run: npm install parcel
+
       - name: Build Project
-        run: npx parcel build src/*
+        run: npx parcel build src/*
